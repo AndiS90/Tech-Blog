@@ -2,12 +2,12 @@ const {
   Model,
   DataTypes
 } = require('sequelize');
-const sequelize = require('../config/connection');
+const sequelize = require('../config/connection');// imports the connection
 
-class Book extends Model {}
+class Post extends Model {}
 
-Book.init({
-  book_id: {
+Post.init({
+  post_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -17,22 +17,11 @@ Book.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  author: {
-    type: DataTypes.STRING,
-  },
-  isbn: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  genre: {
-    type: DataTypes.STRING,
-  },
   description: {
     type: DataTypes.STRING,
-    allowNull: true,
   },
-  pages: {
-    type: DataTypes.INTEGER,
+  datetime: {
+    type: DataTypes.DATE,
     allowNull: false,
   },
   user_id: {
@@ -47,7 +36,7 @@ Book.init({
   timestamps: false,
   freezeTableName: true,
   underscored: true,
-  modelName: 'book',
+  modelName: 'post',
 });
 
-module.exports = Book;
+module.exports = Post;
