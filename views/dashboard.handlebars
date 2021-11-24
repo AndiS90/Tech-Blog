@@ -6,7 +6,8 @@
 
          <div class=" center-align">
         <!-- Modal Trigger -->
-         <a class="waves-effect waves-light btn modal-trigger " href="#modal1">Add New Book</a>
+         <a class="waves-effect waves-light btn modal-trigger " href="#modal1">AddPost</a>
+
           </div>
        </div>
 
@@ -15,8 +16,8 @@
 
           <div class=" bookbox ">
 
-           {{#each books as |book|}}
-          {{> book-details}}
+           {{#each posts as |post|}}
+          {{> post-details}}
           {{/each}}
           </div>
 
@@ -34,47 +35,24 @@
  
    <div class="modal-content center-align">
          <div class=" modal-top">
-   <h4 id="info-modal-heading center-align">New Book</h4> 
+   <h4 id="info-modal-heading center-align">New Post</h4> 
    </div>
       <form class="form new-book-form  center-align">
 
         <div class="row">
         <div class="form-group input-field  center-align">
-          <input class="form-input" type="text" id="book-title" name="book-title" />
-          <label for="book-title">Book Title:</label>
+          <input class="form-input" type="text" id="post-title" name="post-title" />
+          <label for="post-title">Post Title:</label>
         </div>
         </div>
 
-        <div class="row">
-            <div class="form-group input-field  center-align">
-          <input class="form-input addbook" type="text" id="book-author" name="book-author" />
-          <label for="book-author">Author:</label>
-            </div>
-        </div>   
-
-        <div class="row">
-            <div class="form-group input-field center-align">
-                <input class="form-input addbook" type="text" id="book-isbn" name="book-isbn"></input>
-                <label for="book-isbn">ISBN:</label>
-            </div>
-        </div>
-
-                <div class="row">
-            <div class="form-group input-field center-align">
-                <input class="form-input addbook" type="text" id="book-pages" name="book-pages"></input>
-                <label for="book-pages">Pages:</label>
-            </div>
-        </div>
-
+   
         <div class="row">
         <div class="form-group input-field  center-align">        
-        <textarea class="form-input addbook" type="text" id="book-desc" name="book-desc"></textarea>
-       <label for="book-desc">Description:</label> 
+        <textarea class="form-input addbook" type="text" id="post-desc" name="post-desc"></textarea>
+       <label for="post-desc">Description:</label> 
        </div>
-
-
-      
-    
+         
    
     <div class="modal-footer  center-align">
         <button type="submit" href="#!" class="modal-close waves-effect waves teal darken-4 btn-large add-book">Add Book</button>
