@@ -2,7 +2,7 @@ const {
   Model,
   DataTypes
 } = require('sequelize');
-const sequelize = require('../config/connection');// imports the connection
+const sequelize = require('../config/connection'); // imports the connection
 
 class Post extends Model {}
 
@@ -20,10 +20,10 @@ Post.init({
   description: {
     type: DataTypes.STRING,
   },
-  datetime: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
+  // datetime: {
+  //   type: DataTypes.DATE,
+  //   allowNull: false,
+  // },
   user_id: {
     type: DataTypes.INTEGER,
     references: {
@@ -33,7 +33,7 @@ Post.init({
   },
 }, {
   sequelize,
-  timestamps: false,
+  timestamps: true,
   freezeTableName: true,
   underscored: true,
   modelName: 'post',

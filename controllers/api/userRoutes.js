@@ -1,15 +1,21 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const {
+  User
+} = require('../../models');
 
-//Create new user
+//Create new user at /users
 router.post('/', async (req, res) => {
   try {
+
+    //creates new user with sequelize upon receipt of req.body data
     const userData = await User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });
 
+
+    // saves a session with the user id and logged in as true
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -22,32 +28,43 @@ router.post('/', async (req, res) => {
   }
 });
 
-//Logging in
+//post route to users/login
 router.post('/login', async (req, res) => {
   try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({
+      where: {
+        email: req.body.email
+      }
+    });
 
-    if (!userData) {
+    if (!userData) { //if user email isn't in system
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({
+          message: 'Incorrect email or password, please try again'
+        });
       return;
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
 
-    if (!validPassword) {
+    if (!validPassword) { //if password matches what's associated with email in db
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({
+          message: 'Incorrect email or password, please try again'
+        });
       return;
     }
 
-    req.session.save(() => {
+    req.session.save(() => { //saves a new session on proper login
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.json({ user: userData, message: 'You are now logged in!' });
+      res.json({
+        user: userData,
+        message: 'You are now logged in!'
+      });
     });
   } catch (err) {
     console.log(err);
@@ -55,10 +72,10 @@ router.post('/login', async (req, res) => {
   }
 });
 
-//Logging out
+//Logging out from /users/logout
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
-    req.session.destroy(() => {
+    req.session.destroy(() => { //deletes the current session so that the user is redirected as logged out
       res.status(204).end();
     });
   } else {

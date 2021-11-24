@@ -1,34 +1,42 @@
 const router = require('express').Router();
-const { Book, User } = require('../models');
-const withAuth = require('../utils/auth');
-const { getBookByISBN } = require('../db/bookApi');
+const {
+  Post,
+  Comment,
+  User
+} = require('../models');
+const withAuthorization = require('../utils/auth');
+//requires in helper function to require login confirmation before viewing
 
-// Get all users for homepage
+
+
+// Get route for sending all Users posts and comments for homepage
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll({
-      include: [
-        {
-          model: Book,
-          //filename will be the picture preview of the book. Should be the first in the list. filename[0]
-          attributes: ['title'],
-          // add file name and description back in once we can get this working.
+      include: [{
+          model: Post,
+          attributes: ['post_id, title, description, user_id'],
         },
-      ],
+        {
+          model: Comment,
+          attributes: ['comment_id,description, date, user_id, post_id']
+        }
+      ]
     });
 
-    // Serialize data so the template can read it
+    // Serialize data so the template can read it across each individual piece of daata
     const users = userData.map((user) =>
       user.get({
         plain: true,
       })
     );
 
-    // Pass serialized data and session flag into template
+    // Pass serialized data of users and a potential session flag into template w express render
     res.render('homepage', {
       users,
       logged_in: req.session.logged_in,
     });
+
   } catch (err) {
     res.status(500).json(err);
   }
@@ -41,22 +49,19 @@ router.get('/user/:id', async (req, res) => {
   } else {
     try {
       const userData = await User.findByPk(req.params.id, {
-        include: [
-          {
-            model: Book,
-            attributes: ['title', 'author', 'isbn', 'pages', 'user_id'],
-          },
-        ],
+        include: [{
+          model: Post,
+          attributes: ['post_id, title, description'],
+        }, {
+          model: Comment,
+          attributes: ['post_id, description, user_id, date, comment_id'],
+        }],
       });
       const user = userData.get({
         plain: true,
       });
 
-      for (let i = 0; i < user.books.length; i++) {
-        let book = user.books[i];
-        let googleBook = await getBookByISBN(book.isbn);
-        book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
-      }
+
 
       res.render('user', {
         ...user,
@@ -69,30 +74,27 @@ router.get('/user/:id', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+// Use withAuthorization custom middleware to prevent access to route unless the user is logged in
+router.get('/profile', withAuthorization, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: {
-        exclude: ['password'],
+        exclude: ['password'], // hey hey don't send out user passwords
       },
-      include: [
-        {
-          model: Book,
+      include: [{
+          model: Post
         },
+        {
+          model: Comment
+        }
+
       ],
     });
 
     const user = userData.get({
       plain: true,
     });
-
-    for (let i = 0; i < user.books.length; i++) {
-      let book = user.books[i];
-      let googleBook = await getBookByISBN(book.isbn);
-      book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
-    }
 
     res.render('profile', {
       ...user,
@@ -103,64 +105,72 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
-//Get books by Genre
-router.get('/genres', withAuth, async (req, res) => {
-  try {
-    const genreData = await Book.findAll({
-      order: [['genre', 'ASC']],
-    });
+// //Get books by Genre
+// router.get('/genres', withAuth, async (req, res) => {
+//   try {
+//     const genreData = await Book.findAll({
+//       order: [
+//         ['genre', 'ASC']
+//       ],
+//     });
 
-    const books = genreData.map((book) =>
-      book.get({
-        plain: true,
-      })
-    );
+//     const books = genreData.map((book) =>
+//       book.get({
+//         plain: true,
+//       })
+//     );
 
-    for (let i = 0; i < books.length; i++) {
-      let book = books[i];
-      let googleBook = await getBookByISBN(book.isbn);
-      book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
-    }
+//     for (let i = 0; i < books.length; i++) {
+//       let book = books[i];
+//       let googleBook = await getBookByISBN(book.isbn);
+//       book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
+//     }
 
-    res.render('booklist', {
-      books,
-      logged_in: req.session.logged_in,
-    });
-  } catch {
-    res.status(500).json(err);
-  }
-});
+//     res.render('booklist', {
+//       books,
+//       logged_in: req.session.logged_in,
+//     });
+//   } catch {
+//     res.status(500).json(err);
+//   }
+// });
 
-//Get books by Author
-router.get('/authors', withAuth, async (req, res) => {
-  try {
-    const authorData = await Book.findAll({
-      // where: {
-      //   author: 1,
-      // },
-      order: [['author', 'ASC']],
-    });
+// //Get books by Author
+// router.get('/authors', withAuth, async (req, res) => {
+//   try {
+//     const authorData = await Book.findAll({
+//       // where: {
+//       //   author: 1,
+//       // },
+//       order: [
+//         ['author', 'ASC']
+//       ],
+//     });
 
-    const books = authorData.map((book) =>
-      book.get({
-        plain: true,
-      })
-    );
+//     const books = authorData.map((book) =>
+//       book.get({
+//         plain: true,
+//       })
+//     );
 
-    for (let i = 0; i < books.length; i++) {
-      let book = books[i];
-      let googleBook = await getBookByISBN(book.isbn);
-      book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
-    }
+//     for (let i = 0; i < books.length; i++) {
+//       let book = books[i];
+//       let googleBook = await getBookByISBN(book.isbn);
+//       book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
+//     }
 
-    res.render('booklist', {
-      books,
-      logged_in: req.session.logged_in,
-    });
-  } catch {
-    res.status(500).json(err);
-  }
-});
+//     res.render('booklist', {
+//       books,
+//       logged_in: req.session.logged_in,
+//     });
+//   } catch {
+//     res.status(500).json(err);
+//   }
+// });
+
+
+
+////////////////////////////
 
 // router.get('/profile', async (req, res) => {
 //   try {

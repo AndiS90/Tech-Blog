@@ -29,7 +29,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
+      validate: {   //model validations specify format/content/inheritance values for each attribute
         isEmail: true,
       },
     },
