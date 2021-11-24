@@ -1,9 +1,10 @@
 const sequelize = require('../config/connection');
 //can add back for use with json file
-const { User, Book } = require('../models');
+const { User, Post, Comment } = require('../models');
 
 const userData = require('./userData.json');
-const bookData = require('./bookData.json');
+const postData = require('./postData.json');
+const commentData = require('./commentData.json')
 
 const seedDatabase = async () => {
   try {
@@ -14,10 +15,17 @@ const seedDatabase = async () => {
       returning: true,
     });
 
-    for (const book of bookData) {
-      await Book.create({
-        ...book,
-        user_id: users[Math.floor(Math.random() * users.length)].id,
+    for (const post of postData) {
+      await Post.create({
+        ...post,
+       
+      });
+    }
+
+    for (const comment of commentData) {
+      await Comment.create({
+        ...comment,
+        
       });
     }
   } catch (err) {

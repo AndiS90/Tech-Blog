@@ -11,29 +11,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// //socket.io serverside  code
-// const io = require("socket.io")(PORT);
 
-// //stores created user names
-// const users = {};
-
-// //everytime a user loads webpage, this function will be called
-// io.on("connection", (socket) => {
-//   socket.on("new-user", (name) => {
-//     users[socket.id] = name;
-//     socket.broadcast.emit("user-connected", name);
-//   });
-//   socket.on("send-chat-message", (message) => {
-//     socket.broadcast.emit("chat-message", {
-//       message: message,
-//       name: users[socket.id],
-//     });
-//   });
-//   socket.on("disconnect", () => {
-//     socket.broadcast.emit("user-disconnected", users[socket.id]);
-//     delete users[socket.id];
-//   });
-// });
 
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({
@@ -41,10 +19,10 @@ const hbs = exphbs.create({
 });
 
 const sess = {
-  secret: 'Super secret secret',
+  secret: 'grandmas cookie recipe', //used to sign the session ID cookie, a key used for signing and/or encrypting cookies set by the application to maintain session state.
   cookie: {},
-  resave: false,
-  saveUninitialized: true,
+  resave: false,//if your store uses the touch method this is false
+  saveUninitialized: true, //saves new but not modified session to the store
   store: new SequelizeStore({
     db: sequelize,
   }),
@@ -52,7 +30,7 @@ const sess = {
 
 app.use(session(sess));
 
-// Inform Express.js on which template engine to use
+// middleware to tell express what template engine it's using
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 

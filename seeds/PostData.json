@@ -1,1 +1,27 @@
-[{}]
+[{
+    "title": "Timmy's Actually a Meany-Head",
+    "description": "He never let's me finish my sentences and he won't stop hitting me with my own hand.",
+    "user_id": 3
+},
+{   
+    "title": "Unusual Working Conditions",
+    "description": "Mr. Nook won't stop laughing at his own terrible jokes; and I can't open the windows. Talk about fire-hazard!",
+    "user_id": 4
+},
+{   
+    "title": "Strange New Coworker",
+    "description": "I like Brooster and all, but I'm concerned about his coffee-creamer sources. Pigeons? What?! Whoooo?",
+    "user_id": 5
+},
+{   
+    "title": "Social Distancing Sadness",
+    "description": "Ever since the beginning of November I feel like I barely talk half what I used to to interact with our human. I feel my vocabulary going extinct.",
+    "user_id": 6
+},
+{   
+    "title": "Ordinances",
+    "description": "RED ALERT! Please do not encourage the human to enact the pretty island ordinance. It's a flower-pocolypse!",
+    "user_id": 3
+}
+
+]
