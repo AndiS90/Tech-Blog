@@ -75,7 +75,7 @@ router.get('/user/:id', async (req, res) => {
 });
 
 // Use withAuthorization custom middleware to prevent access to route unless the user is logged in
-router.get('/profile', withAuthorization, async (req, res) => {
+router.get('/dashboard', withAuthorization, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -96,7 +96,7 @@ router.get('/profile', withAuthorization, async (req, res) => {
       plain: true,
     });
 
-    res.render('profile', {
+    res.render('dashboard', {
       ...user,
       logged_in: true,
     });
@@ -237,7 +237,7 @@ router.get('/profile', withAuthorization, async (req, res) => {
 //Login route
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/dashboard');
     return;
   }
 
