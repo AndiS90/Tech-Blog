@@ -1,39 +1,28 @@
-//client side javascript
+const description = document.querySelector('#comment').value.trim();
 
-const socket = io('http://localhost:3000');
-const messageContainer = document.getElementById('message-container');
-const messageForm = document.getElementById('send-container');
-const messageInput = document.getElementById('message-input');
+const newCommentHandler = async (event) => {
+  if (description && event.target.hasAttribute('data-id')) {
+    const post_id = event.target.getAttribute('data-id')
 
-//req.params.id?
-const name = prompt('What is your name?');
-appendMessage('You joined');
-socket.emit('new-user', name);
+    const response = await fetch(`/api/comments`, {
+      method: 'POST',
+      body: JSON.stringify({
+        post_id,
+        description
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-//sending message with name: message format
-socket.on('chat-message', (data) => {
-  appendMessage(`${data.name}: ${data.message}`);
-});
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert('Failed to add comment');
+    }
+  }
+};
 
-socket.on('user-connected', (name) => {
-  appendMessage(`${name} connected`);
-});
-
-socket.on('user-disconnected', (name) => {
-  appendMessage(`${name} disconnected`);
-});
-
-messageForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const message = messageInput.value;
-  appendMessage(`You: ${message}`);
-  socket.emit('send-chat-message', message);
-  messageInput.value = '';
-});
-
-//This will be each new message
-function appendMessage(message) {
-  const messageElement = document.createElement('div');
-  messageElement.innerText = message;
-  messageContainer.append(messageElement);
-}
+document
+  .querySelector('.comment-form')
+  .addEventListener('submit', newCommentHandler);

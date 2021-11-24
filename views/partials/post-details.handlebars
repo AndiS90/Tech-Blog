@@ -1,18 +1,31 @@
-<div class="card horizontal">
-  <div class="card-image valign-wrapper">
-    <img src="" alt="{{post.description}}" />
-  </div>
+<div class="card">
   <div class="card-stacked">
     <div class="card-content">
-      <h3>{{title}}</h3>
+      <span class="card-title">{{title}}</span>
 
-      <ul>Description:
-        <li>{{description}}</li>
+      <p>{{description}}</p>
+    </div>
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab activator"><a href="#{{post_id}}-vcoms">View Comments</a></li>
+        <li class="tab"><a class="active" href="#{{post_id}}-reply">Reply</a></li>
       </ul>
     </div>
-    <div class="card-action">
-      <h4>By: {{author}}</h4>
-      <h5>Genre: {{genre}}</h5>
+    <div class="card-content grey lighten-4">
+      <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span>
+      <p>{{comment-details}}</p>
+    </div>
+      <div id="{{post_id}}-reply">
+        <form class="form comment-form" id ="{{post_id}}">
+          <div class="input-field">
+            <textarea class="materialize-textarea comment" type="text" id="comment"></textarea>
+            <label for="comment">Thoughts?</label>
+          </div>
+          <div class="form-group card-action right">
+            <button data-id="{{post_id}}" class="submit hoverable waves-effect waves-light btn teal darken-3" type="submit">login</button>
+          </div>
+        </form>
     </div>
   </div>
 </div>

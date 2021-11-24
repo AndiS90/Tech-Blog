@@ -9,13 +9,13 @@ const withAuthorization = require('../utils/auth');
 
 
 
-// Get route for sending all Users posts and comments for homepage
+// Get route for sending all posts and comments for homepage
 router.get('/', async (req, res) => {
   try {
-    const userData = await User.findAll({
+    const postData = await Post.findAll({
       include: [{
-          model: Post,
-          attributes: ['post_id, title, description, user_id'],
+          model: User,
+          attributes: ['name'],
         },
         {
           model: Comment,
@@ -25,15 +25,15 @@ router.get('/', async (req, res) => {
     });
 
     // Serialize data so the template can read it across each individual piece of daata
-    const users = userData.map((user) =>
-      user.get({
+    const posts = postData.map((post) =>
+      post.get({
         plain: true,
       })
     );
 
     // Pass serialized data of users and a potential session flag into template w express render
     res.render('homepage', {
-      users,
+      posts,
       logged_in: req.session.logged_in,
     });
 
