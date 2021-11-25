@@ -13,5 +13,21 @@
     "name": "Tommy Nook",
     "email": "tommyn@gmail.com",
     "password": "password123"
+  },
+  {
+    "name": "Isabelle",
+    "email": "bestassistant@gmail.com",
+    "password": "password123"
+  },
+  {
+    "name": "Blathers",
+    "email": "whoothis@gmail.com",
+    "password": "password123"
+  },
+  {
+    "name": "Orville",
+    "email": "dodo1@gmail.com",
+    "password": "password123"
   }
+  
 ]
