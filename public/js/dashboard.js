@@ -42,9 +42,9 @@ const delButtonHandler = async (event) => {
 };
 
 document
-  .querySelector('.new-book-form')
+  .querySelector('.new-post-form')
   .addEventListener('submit', newFormHandler);
 
-document
-  .querySelector('.post-list')
-  .addEventListener('click', delButtonHandler);
+// document
+//   .querySelector('.blog-list')
+//   .addEventListener('click', delButtonHandler);

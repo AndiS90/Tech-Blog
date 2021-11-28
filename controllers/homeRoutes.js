@@ -10,7 +10,7 @@ const withAuthorization = require('../utils/auth');
 
 
 // Get route for sending all posts and comments for homepage
-router.get('/', withAuthorization, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
       include: [{

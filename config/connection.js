@@ -7,7 +7,7 @@ if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);//jawsdb allows for heroku integration
 } else {
   sequelize = new Sequelize(
-    process.env.DB_NAME,//hidden info thanks dotenv
+    process.env.DB_NAME, //hidden info thanks dotenv
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     {
