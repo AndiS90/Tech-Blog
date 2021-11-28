@@ -26,12 +26,14 @@
            {{#each posts as |post|}}
          <div class="card">
  
-    <div class="card-content">
+    <div class="post-card card-content">
 
-     <button data-type="{{post_id}}" href="#{{post.post_id}}-del" class="del-{{post_id}} submit hoverable waves-effect waves-light btn teal darken-3"  type="delete"><i  class="small material-icons">delete</i></button>
+     <button id="delete-post" data-id="{{post_id}}" class="del-post hoverable waves-effect waves-light btn teal darken-3"><i data-id="{{post_id}}" class="del-post small material-icons">delete</i></button>
+     
       <a class="waves-effect waves-light modal-trigger " href="#modal0{{post_id}}">
-      <button data-type="{{post_id}}" class=" upd-{{post_id}} hoverable waves-effect waves-light btn teal darken-3 " ><i class="small material-icons">comment</i></button>
+      <button  class=" upd-{{post_id}} hoverable waves-effect waves-light btn teal darken-3 " ><i class="small material-icons">comment</i></button>
       </a>
+      
       <span class="card-title"><h2>{{post.title}}</h2></span>
 
      <h3>{{description}}</h3>
@@ -87,14 +89,14 @@
    
         <div class="row">
         <div class="form-group input-field  center-align">        
-        <input value="{{post.description}}" class="form-input addbook" type="text" id="upd-post-desc" name="post-desc"></input>
+        <input  class="form-input addbook" type="text" id="upd-post-desc" name="post-desc"></input>
        <label for="upd-post-desc">Description:</label> 
        </div>
         </div>
          
    
     <div class="modal-footer  center-align">
-        <button type="submit" href="#!" class="modal-close waves-effect waves teal darken-4 btn-large add-book">Update Post</button>
+        <button data-id="{{post_id}}" type="submit" href="#!" class="upd-post modal-close waves-effect waves teal darken-4 btn-large submit">Update Post</button>
     </div>
     </form>
 </div>

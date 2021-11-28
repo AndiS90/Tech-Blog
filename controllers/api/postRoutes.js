@@ -58,7 +58,7 @@ router.put("/:post_id", withAuthorization, async (req, res) => {
     }, {
       where: {
         post_id: req.params.post_id,
-        user_id: req.session.id,
+        // user_id: req.session.user_id,
       },
     });
     res.status(200).json(postData);
@@ -73,7 +73,7 @@ router.delete('/:post_id', withAuthorization, async (req, res) => {
     const postData = await Post.destroy({
       where: {
         post_id: req.params.post_id,
-        user_id: req.session.id,
+        // user_id: req.session.user_id
       },
     });
 
