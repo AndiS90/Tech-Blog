@@ -1,36 +1,37 @@
-[{   
+[
+  {
     "description": "hehehe, Stop hitting yourself.",
     "user_id": 1,
     "post_id": 1
-},
-{   
-        "description": "Boys please behave. ",
-        "user_id": 1,
-        "post_id": 1
- },
- {   
+  },
+  {
+    "description": "Boys please behave. ",
+    "user_id": 1,
+    "post_id": 1
+  },
+  {
     "description": "Izzy, I thought we ran a tighter-ship than this. ",
     "user_id": 1,
     "post_id": 2
-},
-{   
+  },
+  {
     "description": "Yes sir, but you really need to control your gas issues anyway.",
     "user_id": 4,
     "post_id": 2
-},
-{   
+  },
+  {
     "description": "Oh dear this will have to be looked into.",
     "user_id": 1,
     "post_id": 3
-},
-{   
+  },
+  {
     "description": "Mr. Nook don't you dare. That coffee sustains me.",
     "user_id": 4,
     "post_id": 3
-},
-{   
+  },
+  {
     "description": "Just spread your wings and imagine your words soaring away from you into the ears of the rest of us. OMG A BUG GRUHUHHHUHUHEWWW.",
     "user_id": 5,
     "post_id": 4
-}
+  }
 ]

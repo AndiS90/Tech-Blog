@@ -2,7 +2,7 @@
 
    <style>
         body {
-          background-image: url('/images/background-5.jpeg');
+          background-image: url('/images/background-3.png');
         }
       </style>
 
@@ -11,12 +11,12 @@
 
 <section class="container">
   <div class ="name-box123">
-  <h3 class="user-name center-align">{{name}}'s Books</h3>
+  <h3 class="user-name center-align">{{name}}'s Posts</h3>
   </div>
 
   <section class="flex-row justify-center">
-    {{#each books as |book|}}
-    {{> book-details}}
+    {{#each posts as |post|}}
+    {{> post-details}}
     {{/each}}
   </section>
 </section>

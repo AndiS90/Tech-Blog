@@ -9,7 +9,7 @@ const withAuthorization = require('../../utils/auth');
 router.post('/', withAuthorization, async (req, res) => {
     try {
         const newComment = await Comment.create({
-            post_id: req.body.post_id, //(gotta remember how to grab post id from front and send to back without bothering the user w that)
+            post_id: req.body.post_id, //(data-type attribute to send it back)
             description: req.body.description,
             user_id: req.session.id, //sets the user_id of the post to the id of the logged in user
         });
@@ -34,7 +34,7 @@ router.get('/', withAuthorization, async (req, res) => {
 });
 
 //get comments by post_id at comments/post_id
-router.get('/:post_id', withAuth, async (req, res) => {
+router.get('/:post_id', withAuthorization, async (req, res) => {
     try {
         const commentsData = await Comment.findbyPK(req.params.post_id);
         const comments = commentsData.get({
@@ -51,7 +51,7 @@ router.get('/:post_id', withAuth, async (req, res) => {
 
 
 // update a comment at comments/comment_id 
-router.put("/:comment_id", withAuth, async (req, res) => {
+router.put("/:comment_id", withAuthorization, async (req, res) => {
     try {
         const commentData = await Comment.update({
             description: req.body.description,

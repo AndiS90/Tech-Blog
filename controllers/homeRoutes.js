@@ -10,16 +10,22 @@ const withAuthorization = require('../utils/auth');
 
 
 // Get route for sending all posts and comments for homepage
-router.get('/', async (req, res) => {
+router.get('/', withAuthorization, async (req, res) => {
   try {
     const postData = await Post.findAll({
       include: [{
           model: User,
-          attributes: ['name'],
+          // attributes: ['name'],
+
         },
         {
           model: Comment,
-          attributes: ['comment_id,description, date, user_id, post_id']
+          // attributes: 
+          include: [{
+            model: User,
+            attributes: ['name'],
+          }, ]
+
         }
       ]
     });
@@ -43,7 +49,7 @@ router.get('/', async (req, res) => {
 });
 
 //Get one user
-router.get('/user/:id', async (req, res) => {
+router.get('/users/:id', async (req, res) => {
   if (!req.session.logged_in) {
     res.redirect('/login');
   } else {
@@ -51,11 +57,16 @@ router.get('/user/:id', async (req, res) => {
       const userData = await User.findByPk(req.params.id, {
         include: [{
           model: Post,
-          attributes: ['post_id, title, description'],
-        }, {
-          model: Comment,
-          attributes: ['post_id, description, user_id, date, comment_id'],
-        }],
+          include: [{
+            model: Comment,
+            // attributes: 
+            include: [{
+              model: User,
+              attributes: ['name'],
+            }, ]
+
+          }],
+        }]
       });
       const user = userData.get({
         plain: true,
@@ -83,11 +94,21 @@ router.get('/dashboard', withAuthorization, async (req, res) => {
         exclude: ['password'], // hey hey don't send out user passwords
       },
       include: [{
-          model: Post
+          model: Post,
+          include: [{
+            model: Comment,
+            // attributes: 
+            include: [{
+              model: User,
+              attributes: ['name'],
+            }, ]
+
+          }]
+
         },
-        {
-          model: Comment
-        }
+        // {
+        //   model: Comment
+        // }
 
       ],
     });

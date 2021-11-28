@@ -3,53 +3,28 @@
 
     <style>
         body {
-          background-image: url('/images/background-4.jpeg');
+          background-image: url('/images/background-2.png');
         }
       </style>
 
 
 <div class = "container">
 
-<div class="row">
-    <div class=" valign-wrapper greenbox ">
 
-      <ul class="center-align ">   View By:
-       <li> <a href="#modal2" class="waves-effect waves-light btn-large teal darken-4 z-depth-3 modal-trigger">User</a>
-        <a href="/authors" class="waves-effect waves-light btn-large teal darken-4 z-depth-3">Author</a>
-        <a href="/genres" class="waves-effect waves-light btn-large teal darken-4 z-depth-3">Genre</a></li>
-      </ul>
-
-    </div>
-
-</div>
-
-</div>
-         
-<!-- Modal Structure -->
-<div id="modal2" class="modal ">   
- 
-   <div class="modal-content center-align">
-         <div class=" modal-top">
-   <h4 id="info-modal-heading center-align">Users</h4> 
-   </div>
 
   <div class= " valign-wrapper  userbox ">
 
     <div class= " center-align ">
       <ul> 
-        {{#each users as |user|}}
-       <li> {{> user-details}}</li>
+        {{#each posts as |post|}}
+       <li> {{> post-details}}</li>
         {{/each}}
     </ul>
     </div>
 
   </div>
 
-    <div class="modal-footer  center-align">
-        <button href="#!" class="modal-close waves-effect waves teal darken-4 btn-large add-book">Close Users</button>
-    </div>
-</div>
- </div>
+  
 
  
   <script src="./js/homepage.js"></script>
