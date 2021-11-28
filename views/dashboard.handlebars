@@ -28,7 +28,7 @@
  
     <div class="post-card card-content">
 
-     <button id="delete-post" data-id="{{post_id}}" class="del-post hoverable waves-effect waves-light btn teal darken-3"><i data-id="{{post_id}}" class="del-post small material-icons">delete</i></button>
+     <button id="delete-post" data-id="{{post_id}}" class="del-post hoverable waves-effect waves-light btn teal darken-3"><i data-id="{{post_id}}" class=" small material-icons">delete</i></button>
      
       <a class="waves-effect waves-light modal-trigger " href="#modal0{{post_id}}">
       <button  class=" upd-{{post_id}} hoverable waves-effect waves-light btn teal darken-3 " ><i class="small material-icons">comment</i></button>
@@ -77,11 +77,11 @@
          <div class=" modal-top">
    <h4 id="info-modal-heading center-align">Update Post</h4> 
    </div>
-      <form class="form upd-post-form center-align">
+      <form data-id="{{post_id}}" class="form upd-post-form center-align">
 
         <div class="row">
         <div class="form-group input-field  center-align">
-          <input value="{{post.title}}" class="form-input" type="text" id="upd-post-title" name="post-title" />
+          <input class="form-input" type="text" id="upd-post-title{{post_id}}" name="post-title" />
           <label for="upd-post-title">Post Title:</label>
         </div>
         </div>
@@ -89,7 +89,7 @@
    
         <div class="row">
         <div class="form-group input-field  center-align">        
-        <input  class="form-input addbook" type="text" id="upd-post-desc" name="post-desc"></input>
+        <input  class="form-input addbook" type="text" id="upd-post-desc{{post_id}}" name="post-desc"></input>
        <label for="upd-post-desc">Description:</label> 
        </div>
         </div>
@@ -127,7 +127,7 @@
          <div class=" modal-top">
    <h4 id="info-modal-heading center-align">New Post</h4> 
    </div>
-      <form class="form new-post-form center-align">
+      <form  class="form new-post-form center-align">
 
         <div class="row">
         <div class="form-group input-field  center-align">
