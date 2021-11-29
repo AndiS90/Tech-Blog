@@ -79,7 +79,7 @@ router.delete('/:post_id', withAuthorization, async (req, res) => {
 
     if (!postData) { //if post data is inconsistent
       res.status(404).json({
-        message: 'No post found with this title!'
+        message: 'No post found!'
       });
       return;
     }
