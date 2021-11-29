@@ -11,7 +11,7 @@ router.post('/', withAuthorization, async (req, res) => {
         const newComment = await Comment.create({
             post_id: req.body.post_id, //(data-type attribute to send it back)
             description: req.body.description,
-            user_id: req.session.id, //sets the user_id of the post to the id of the logged in user
+            user_id: req.session.user_id, //sets the user_id of the post to the id of the logged in user
         });
 
         res.status(200).json(newComment);
@@ -40,7 +40,7 @@ router.get('/:post_id', withAuthorization, async (req, res) => {
         const comments = commentsData.get({
             plain: true,
         });
-        res.render('comment-details', {
+        res.render('post-details', {
             comments,
             // logged_in: req.session.logged_in,
         });
@@ -58,7 +58,7 @@ router.put("/:comment_id", withAuthorization, async (req, res) => {
         }, {
             where: {
                 comment_id: req.params.comment_id,
-                user_id: req.session.id,
+                user_id: req.session.user_id,
             },
         });
         res.status(200).json(commentData);
