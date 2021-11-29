@@ -1,8 +1,12 @@
-const description = document.querySelector('#comment').value.trim();
+
 
 const newCommentHandler = async (event) => {
+ 
+  const post_id = event.target.getAttribute('data-id');
+  const description = document.querySelector(`#comment${post_id}`).value.trim();
+
   if (description && event.target.hasAttribute('data-id')) {
-    const post_id = event.target.getAttribute('data-id')
+  
 
     const response = await fetch(`/api/comments`, {
       method: 'POST',
@@ -23,6 +27,8 @@ const newCommentHandler = async (event) => {
   }
 };
 
-document
-  .querySelector('.comment-form')
-  .addEventListener('submit', newCommentHandler);
+const commentforms = document.querySelectorAll('.comment-form')
+
+commentforms.forEach(function (form) {
+  form.addEventListener('submit', newCommentHandler);
+});
