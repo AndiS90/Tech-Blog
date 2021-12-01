@@ -3,21 +3,25 @@
   <div class="card-content">
     <div>
 
-      <span class="left">{{user.name}}</span>
+      <a href="/users/{{user_id}}" class="left">{{user.name}}</a>
       <span class="right">{{format_date updatedAt}}</span>
     </div>
-    <span class="card-title"><h2>{{title}}</h2></span>
+    <a href="/posts/{{post_id}}" class="card-title"><h2>{{title}}</h2></a>
 
     <h3>{{description}}</h3>
 
   </div>
- <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">Comments<i class="material-icons right">more_vert</i></span>
-</div>
+  <div class="card-content">
+    <span class="card-title activator grey-text text-darken-4">Comments<i
+        class="material-icons right"
+      >more_vert</i></span>
+  </div>
 
-  {{!-- <div class="card-content grey lighten-4"> --}}
-     <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span> 
+  {{! <div class="card-content grey lighten-4"> }}
+  <div class="card-reveal">
+    <span class="card-title grey-text text-darken-4">Comments<i
+        class="material-icons right"
+      >close</i></span>
     <div id="{{post_id}}-vcoms">
       {{#if comments}}
         {{#each comments as |comment|}}
@@ -29,8 +33,8 @@
                   <p>{{comment.description}}</p>
                 </div>
                 <div class="card-action">
-                  <a href="#">{{user.name}}</a>
-                  <a href="#">{{format_date comment.updatedAt}}</a>
+                  <a href="/users/{{user_id}}">{{user.name}}</a>
+                  <span href="#">{{format_date comment.updatedAt}}</span>
                 </div>
               </div>
             </div>
@@ -40,13 +44,24 @@
     </div>
     {{! </div> }}
     <div id="{{post_id}}-reply">
-      <form class="form comment-form comment-form-{{post_id}}" data-id="{{post_id}}">
+      <form
+        class="form comment-form comment-form-{{post_id}}"
+        data-id="{{post_id}}"
+      >
         <div class="input-field">
-          <textarea class="materialize-textarea comment" type="text" id="comment{{post_id}}"></textarea>
+          <textarea
+            class="materialize-textarea comment"
+            type="text"
+            id="comment{{post_id}}"
+          ></textarea>
           <label for="comment{{post_id}}">Thoughts?</label>
         </div>
         <div class="form-group card-action">
-          <button data-id="{{post_id}}" class="submit hoverable waves-effect waves-light btn teal darken-3" type="submit">Submit Comment</button>
+          <button
+            data-id="{{post_id}}"
+            class="submit hoverable waves-effect waves-light btn teal darken-3"
+            type="submit"
+          >Submit Comment</button>
         </div>
       </form>
     </div>

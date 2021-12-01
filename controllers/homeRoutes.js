@@ -126,134 +126,45 @@ router.get('/dashboard', withAuthorization, async (req, res) => {
   }
 });
 
-// //Get books by Genre
-// router.get('/genres', withAuth, async (req, res) => {
-//   try {
-//     const genreData = await Book.findAll({
-//       order: [
-//         ['genre', 'ASC']
-//       ],
-//     });
 
-//     const books = genreData.map((book) =>
-//       book.get({
-//         plain: true,
-//       })
-//     );
 
-//     for (let i = 0; i < books.length; i++) {
-//       let book = books[i];
-//       let googleBook = await getBookByISBN(book.isbn);
-//       book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
-//     }
+//Get one post
+router.get('/posts/:post_id', async (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect('/login');
+  } else {
+    try {
+      const postData = await Post.findByPk(req.params.post_id, {
+        // include: [{
+        //   model: User,
+        include: [{
+          model: Comment,
+          // attributes: 
+          include: [{
+            model: User,
+            attributes: ['name'],
+          }, ]
 
-//     res.render('booklist', {
-//       books,
-//       logged_in: req.session.logged_in,
-//     });
-//   } catch {
-//     res.status(500).json(err);
-//   }
-// });
+        }],
 
-// //Get books by Author
-// router.get('/authors', withAuth, async (req, res) => {
-//   try {
-//     const authorData = await Book.findAll({
-//       // where: {
-//       //   author: 1,
-//       // },
-//       order: [
-//         ['author', 'ASC']
-//       ],
-//     });
-
-//     const books = authorData.map((book) =>
-//       book.get({
-//         plain: true,
-//       })
-//     );
-
-//     for (let i = 0; i < books.length; i++) {
-//       let book = books[i];
-//       let googleBook = await getBookByISBN(book.isbn);
-//       book.image = googleBook.data.items[0].volumeInfo.imageLinks.thumbnail;
-//     }
-
-//     res.render('booklist', {
-//       books,
-//       logged_in: req.session.logged_in,
-//     });
-//   } catch {
-//     res.status(500).json(err);
-//   }
-// });
+      })
+      const post = postData.get({
+        plain: true,
+      });
 
 
 
-////////////////////////////
+      res.render('postbyid', {
+        ...post,
+        logged_in: req.session.logged_in,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
+});
 
-// router.get('/profile', async (req, res) => {
-//   try {
-//  bookRoutes
-//     if (req.session.loggedIn) {
-//       res.render('profile');
-//     }
-
-//     res.render('login');
-
-//     const bookData = await Book.findbyPK(req.params.id);
-//     const book = bookData.get({
-//       plain: true,
-//     });
-
-//     const googleBook = await getBookByISBN(book.isbn)
-//     res.render('book', {
-//       book,
-//       loggedIn: req.session.loggedIn,
-
-//     });
-//  main
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-// //Get one book
-// router.get('/book/:id', withAuth, async (req, res) => {
-//   try {
-//     const bookData = await Book.findbyPK(req.params.id);
-//     const book = bookData.get({
-//       plain: true,
-//     });
-//     res.render('book', {
-//       book,
-//       loggedIn: req.session.loggedIn,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-// // Use withAuth middleware to prevent access to route
-// router.get('/profile', withAuth, async (req, res) => {
-//   try {
-//     // Find the logged in user based on the session ID
-//     const userData = await User.findByPk(req.session.user_id, {
-//       attributes: { exclude: ['password'] },
-//       include: [{ model: Project }],
-//     });
-
-//     const user = userData.get({ plain: true });
-
-//     res.render('profile', {
-//       ...user,
-//       logged_in: true
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 //Login route
 router.get('/login', (req, res) => {
