@@ -24,9 +24,8 @@ A Blog Application created with the express-handlebars package implemented for v
 
 - Click the following link to deploy the application hosted on heroku [here](https://polar-savannah-37169.herokuapp.com/).
 
-![ gif screenshot](./public/images/tech-blog-acnh-screenshot.gif) / ! [](./public/images/tech-blog-acnh-screenshot.gif)
-
-  <br>
+![ gif screenshot](./public/images/tech-blog-acnh-screenshot.gif)
+<br>
 
 ## <span id="usage"> Usage: </span>
 
