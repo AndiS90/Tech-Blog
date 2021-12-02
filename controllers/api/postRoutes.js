@@ -33,21 +33,7 @@ router.get('/', withAuthorization, async (req, res) => {
   });
 });
 
-//get one book by id
-// router.get('/:id', withAuth, async (req, res) => {
-//   try {
-//     const bookData = await Book.findbyPK(req.params.id);
-//     const book = bookData.get({
-//       plain: true,
-//     });
-//     res.render('book', {
-//       book,
-//       loggedIn: req.session.loggedIn,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+
 
 // update a post at posts/post_id
 router.put("/:post_id", withAuthorization, async (req, res) => {
