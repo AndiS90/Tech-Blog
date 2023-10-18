@@ -22,7 +22,7 @@ A Blog Application created with the express-handlebars package implemented for v
 
   <br>
 
-- Click the following link to deploy the application hosted on heroku [here](https://polar-savannah-37169.herokuapp.com/).
+- Click the following link to deploy the application hosted on heroku [here](https://tech-blog-01111950-9b081f1bc5c0.herokuapp.com/).
 
 <br>
 
